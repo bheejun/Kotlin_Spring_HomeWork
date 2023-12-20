@@ -9,10 +9,10 @@ import java.time.LocalDateTime
 @Table(name = "post")
 class Post(
     @Column(nullable = false, name = "title")
-    var title: String,
+    var title: String ="",
 
     @Column(nullable = false, name = "content")
-    var content: String,
+    var content: String ="",
 
     @Column(nullable = false)
     var creationDate: LocalDateTime = LocalDateTime.now(),
@@ -20,7 +20,7 @@ class Post(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    var user: User
+    var user: User? = null
 
 
 ) {

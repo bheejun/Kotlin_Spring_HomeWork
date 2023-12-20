@@ -5,6 +5,5 @@ import java.time.LocalDateTime
 data class CommentResponse(
     val id: Long,
     val content: String,
-    val username: String,
-    val creationDate : LocalDateTime
+    val username: String
 )

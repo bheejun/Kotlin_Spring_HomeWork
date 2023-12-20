@@ -9,15 +9,15 @@ import java.time.LocalDateTime
 @Table(name = "comments")
 class Comment(
     @Column(nullable = false, columnDefinition = "TEXT")
-    var content: String,
+    var content: String ="",
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
-    var post: Post,
+    var post: Post? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    var user: User,
+    var user: User? = null,
 
     @Column(nullable = false)
     var creationDate: LocalDateTime = LocalDateTime.now()
