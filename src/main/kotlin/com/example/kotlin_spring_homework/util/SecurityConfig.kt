@@ -20,7 +20,7 @@ class SecurityConfig(private val jwtUtil: JwtUtil) {
 
             .csrf { it.disable() }
             .authorizeHttpRequests {
-                it.requestMatchers("/user/**").permitAll()
+                it.requestMatchers("/user/**","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                     .anyRequest().authenticated()
             }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
