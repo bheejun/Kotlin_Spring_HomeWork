@@ -1,9 +1,9 @@
 package com.example.kotlin_spring_homework.util
 
-import com.example.kotlin_spring_homework.comment.dto.CommentResponse
-import com.example.kotlin_spring_homework.comment.model.Comment
-import com.example.kotlin_spring_homework.post.dto.PostResponse
-import com.example.kotlin_spring_homework.post.model.Post
+import com.example.kotlin_spring_homework.domain.comment.dto.CommentResponse
+import com.example.kotlin_spring_homework.domain.comment.model.Comment
+import com.example.kotlin_spring_homework.domain.post.dto.PostResponse
+import com.example.kotlin_spring_homework.domain.post.model.Post
 import org.springframework.security.core.context.SecurityContextHolder
 
 fun Comment.toResponse(): CommentResponse =
