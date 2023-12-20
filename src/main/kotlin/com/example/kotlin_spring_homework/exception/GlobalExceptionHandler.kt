@@ -8,27 +8,48 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 @ControllerAdvice
 class GlobalExceptionHandler {
     @ExceptionHandler(value = [UsernameAlreadyExistsException::class])
-    fun handleUsernameAlreadyExistsException(e: UsernameAlreadyExistsException): ResponseEntity<String> {
-        return ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
+    fun handleUsernameAlreadyExistsException(ex: UsernameAlreadyExistsException): ResponseEntity<ErrorResponse> {
+      val error = ErrorResponse(
+          message = ex.message ?: "Username already exists",
+          status = HttpStatus.BAD_REQUEST.value()
+      )
+        return ResponseEntity(error, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(value = [UserNotFoundException::class])
-    fun handleUserNotFoundException(e: UserNotFoundException): ResponseEntity<String> {
-        return ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
+    fun handleUserNotFoundException(e: UserNotFoundException): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            message = e.message ?: "User not found",
+            status = HttpStatus.BAD_REQUEST.value()
+        )
+        return ResponseEntity(error, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(value = [InvalidPasswordException::class])
-    fun handleInvalidPasswordException(e: InvalidPasswordException): ResponseEntity<String> {
-        return ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
+    fun handleInvalidPasswordException(e: InvalidPasswordException): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            message = e.message ?: "Invalid password",
+            status = HttpStatus.BAD_REQUEST.value()
+        )
+        return ResponseEntity(error, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(value = [UnauthorizedUserException::class])
-    fun handleUnauthorizedUserException(e: UnauthorizedUserException): ResponseEntity<String> {
-        return ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
+    fun handleUnauthorizedUserException(e: UnauthorizedUserException): ResponseEntity<ErrorResponse> {
+        val error = ErrorResponse(
+            message = e.message ?: "Unauthorized user",
+            status = HttpStatus.BAD_REQUEST.value()
+        )
+        return ResponseEntity(error, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(value = [CommentNotFoundException::class, PostNotFoundException::class])
-    fun handleResourceNotFoundException(e: RuntimeException): ResponseEntity<String> {
-        return ResponseEntity(e.message, HttpStatus.NOT_FOUND)
+    fun handleResourceNotFoundException(e: RuntimeException): ResponseEntity<ErrorResponse> {
+        val status = if (e is CommentNotFoundException) HttpStatus.NOT_FOUND else HttpStatus.NOT_FOUND
+        val error = ErrorResponse(
+            message = e.message ?: "Resource not found",
+            status = status.value()
+        )
+        return ResponseEntity(error, status)
     }
 }
